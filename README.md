@@ -3,10 +3,14 @@
 ## 개발환경 구축
 ### 프로그램 설치
 * 본인의 OS에 맞는 버전 다운로드 후 설치
-1. Nodejs 설치 [Download Pages](https://nodejs.org/en/download/)(마우스 오른쪽 버튼 > 새 탭에서 링크 열기)
-2. Visual Studio Code 설치 [Download Pages](https://code.visualstudio.com/download)(마우스 오른쪽 버튼 > 새 탭에서 링크 열기)
-3. Chrome 브라우저 설치 [Download Pages](https://www.google.com/chrome)(마우스 오른쪽 버튼 > 새 탭에서 링크 열기)
-4. MongoDB 설치 [Download Pages](https://www.mongodb.com/try/download/community)(마우스 오른쪽 버튼 > 새 탭에서 링크 열기)
+1. Nodejs 설치 [Download Pages](https://nodejs.org/en/download/)
+2. Visual Studio Code 설치 [Download Pages](https://code.visualstudio.com/download)
+3. Chrome 브라우저 설치 [Download Pages](https://www.google.com/chrome)
+4. MongoDB 설치 [Download Pages](https://www.mongodb.com/try/download/community)
+  * Version 4.4.10 선택 후 Download
+  * 설치 진행 중 Choose Setup Type 선택창에서 Custom 선택
+    - Location 항목의 Browser 버튼 클릭해서 설치 경로 c:\html5project\MongoDB로 수정
+  * 나머지는 기본 옵션으로 설치
 
 ### Visual Studio Code 설정
 1. VSCode 실행
@@ -19,7 +23,7 @@
 	* View > Terminal 선택
 	* VSCode 하단에 오픈된 TERMINAL 탭 우측 상단의 아래화살표 선택 후 Select Default Profile 선택
 	* VSCode 상단의 선택상자에서 Command Prompt 선택
-	* 터미널 종료후 다시 오픈
+	* VSCode 하단에 오픈된 TERMINAL 탭 우측 상단의 휴지통 클릭해서 터미널 종료
 	* View > Terminal 선택 후 오픈된 TERMINAL 탭 우측 상단에 cmd로 바뀌었는지 확인
 ## 소스코드 다운로드
 * [Download Pages](https://github.com/uzoolove/html5project202106/blob/master/sample)(마우스 오른쪽 버튼 > 새 탭에서 링크 열기) 이동 후 각 압축파일 선택해서 Download 버튼 클릭
