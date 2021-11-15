@@ -1,7 +1,8 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const mime = require('./mimetypes');
+// const mime = require('./mimetypes');
+const mime = require('mime');
 
 var home = path.join(__dirname, 'design');
 
@@ -11,7 +12,8 @@ var server = http.createServer(function(req, res){
   var filename = req.url;
 
   // var mimeType = getMime(filename);
-  var mimeType = mime.myMime(filename);
+  // var mimeType = mime.myMime(filename);
+  var mimeType = mime.getType(filename);
 
   // 비동기 방식
   fs.readFile(path.join(home, filename), function(err, data){
