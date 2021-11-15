@@ -9,11 +9,31 @@ var server = http.createServer(function(req, res){
   console.log(req.headers['user-agent']);
   var filename = req.url;
 
-  // 동기 방식
-  var data = fs.readFileSync(path.join(home, filename));
+  // 비동기 방식
+  fs.readFile(path.join(home, filename), function(err, data){
+    // console.log('2. readFile() 콜백함수.');
+    if(err){
+      console.error(err);
+      res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
+      res.end('<h1>' + filename + ' 파일을 찾을 수 없습니다.</h1>');
+    }else{
+      res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+      res.end(data);
+    }
+  });
 
-  res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
-  res.end(data);
+  // console.log('1. readFile() 호출 후...');
+
+  // 동기 방식
+  // try{
+  //   var data = fs.readFileSync(path.join(home, filename));
+  //   res.writeHead(200, {'Content-Type': 'text/html;charset=utf-8'});
+  //   res.end(data);
+  // }catch(err){
+  //   console.error(err);
+  //   res.writeHead(404, {'Content-Type': 'text/html;charset=utf-8'});
+  //   res.end('<h1>' + filename + ' 파일을 찾을 수 없습니다.</h1>');
+  // }  
   // res.end('<h1>첫번째 HTTP 서버.</h1>');
 });
 server.listen(1234, function(){
