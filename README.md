@@ -7,10 +7,10 @@
 2. Visual Studio Code 설치 [Download Pages](https://code.visualstudio.com/download)
 3. Chrome 브라우저 설치 [Download Pages](https://www.google.com/chrome)
 4. MongoDB 설치 [Download Pages](https://www.mongodb.com/try/download/community)
-  * Version 4.4.10 선택 후 Download
-  * 설치 진행 중 Choose Setup Type 선택창에서 Custom 선택
-    - Location 항목의 Browser 버튼 클릭해서 설치 경로 c:\html5project\MongoDB로 수정
-  * 나머지는 기본 옵션으로 설치
+    * Version 4.4.10 선택 후 Download
+    * 설치 진행 중 Choose Setup Type 선택창에서 Custom 선택
+      - Location 항목의 Browser 버튼 클릭해서 설치 경로 c:\html5project\MongoDB로 수정
+    * 나머지는 기본 옵션으로 설치
 
 ### Visual Studio Code 설정
 1. VSCode 실행
