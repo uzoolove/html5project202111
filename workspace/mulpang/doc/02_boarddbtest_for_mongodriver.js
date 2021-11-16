@@ -33,7 +33,7 @@ var b3 = {no: 3, name: "lee", title: "그렇다면 두번째 글은...", content
 // 로그 메세지 출력
 function myLog(str, result){
 	console.info(str);
-	console.debug(util.inspect(result) + "\n");
+	console.debug(util.inspect(result, {depth: 5}) + "\n");
 }
 
 // TODO 1. board 컬렉션에 데이터 등록
@@ -123,7 +123,10 @@ function todo9(){
     name: '이영희',
     content: '퍼가요~~~'
   };
-  
+  db.board.updateOne({no: 1}, {$push: {comments: comment}}, function(err, data){
+    console.log(data.result);
+    list('TODO 9. 1번 게시물에 댓글 추가', todo10);
+  });
 }
 
 // TODO 10. 2번 게시물 삭제
