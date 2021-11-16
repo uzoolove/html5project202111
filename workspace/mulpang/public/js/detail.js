@@ -7,7 +7,9 @@ $(function(){
 
 // 상세보기 탭 클릭
 function setTabEvent(){	
-
+  $('.coupon_tab > section').click(function(){
+    $(this).removeClass('tab_off').siblings().addClass('tab_off');
+  });
 }
 
 // 갤러리 이미지 클릭
