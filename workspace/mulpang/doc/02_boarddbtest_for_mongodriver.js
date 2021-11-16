@@ -11,16 +11,18 @@ const dbName = 'myProject';
 // Use connect method to connect to the server
 client.connect(function(err){
   if(err) console.error(err);
-  console.log('Connected successfully to server');
+  console.log('Connected successfully to server');  
   db = client.db(dbName);
-  db.board = db.collection('board');
-  db.coupon = db.collection('coupon');
+  db.dropDatabase(function(){
+    db.board = db.collection('board');
+    db.coupon = db.collection('coupon');
 
-  setTimeout(function(){
-    client.close();
-  }, 1000);
+    setTimeout(function(){
+      client.close();
+    }, 1000);
 
-  todo1();
+    todo1();
+  });
 });
 
 // 등록할 게시물
