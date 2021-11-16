@@ -104,7 +104,9 @@ module.exports.buyCouponForm = function(_id, cb){
     'image.detail': 1
 	};
 	// TODO 쿠폰 정보를 조회한다.
-	
+	db.coupon.findOne({_id: ObjectId(_id)}, {projection: fields}, function(err, result){
+    cb(result);
+  });
 };
 
 // 쿠폰 구매
