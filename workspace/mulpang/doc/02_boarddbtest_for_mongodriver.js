@@ -15,6 +15,12 @@ client.connect(function(err){
   db = client.db(dbName);
   db.board = db.collection('board');
   db.coupon = db.collection('coupon');
+
+  setTimeout(function(){
+    client.close();
+  }, 1000);
+
+  todo1();
 });
 
 // 등록할 게시물
@@ -31,13 +37,17 @@ function myLog(str, result){
 // TODO 1. board 컬렉션에 데이터 등록
 // insertOne({등록할 문서}), insertMany([{등록할 문서}, {등록할 문서}])
 function todo1(){
-	
+	db.board.insertOne(b1);
+  db.board.insertMany([b2, b3]);
+  todo2();
 }
 
 // TODO 2. 모든 board 데이터의 모든 속성 조회
 // find()
 function todo2(){
-	
+	db.board.find().toArray(function(err, data){
+    myLog('TODO 2. 모든 board 데이터의 모든 속성 조회', data);
+  });
 }
 
 // TODO 3. 데이터 조회(kim이 작성한 게시물 조회)
