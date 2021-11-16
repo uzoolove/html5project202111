@@ -29,6 +29,17 @@ router.get('/purchase/:no', function(req, res, next) {
   });
 });
 
+// 쿠폰 구매
+router.post('/purchase', function(req, res, next) {
+  model.buyCoupon(req.body, function(err, result){
+    if(err){
+      res.json({errors: err});
+    }else{
+      res.end('ok');
+    }
+  });
+});
+
 
 // http://localhost/today.html -> req.params.page = 'today'
 router.get('/:page.html', function(req, res, next) {

@@ -127,9 +127,17 @@ module.exports.buyCoupon = function(params, cb){
 	};
 
 	// TODO 구매 정보를 등록한다.
-	
-	// TODO 쿠폰 구매 건수를 하나 증가시킨다.
-	
+  db.purchase.insertOne(document, function(err, result){
+    if(err){
+      console.error(err);
+      cb({message: '쿠폰 구매에 실패했습니다. 잠시후 다시 시도하시기 바랍니다.'});
+    }else{
+      // TODO 쿠폰 구매 건수를 하나 증가시킨다.
+      db.coupon.updateOne({_id: document.couponId}, {$inc: {buyQuantity: document.quantity}}, function(){
+        cb(null, document.couponId);
+      });      
+    }
+  });
 };	
 	
 // 추천 쿠폰 조회
