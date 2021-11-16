@@ -13,7 +13,7 @@ client.connect(function(err){
   if(err) console.error(err);
   console.log('Connected successfully to server');  
   db = client.db(dbName);
-  db.dropDatabase(function(){
+  // db.dropDatabase(function(){
     db.board = db.collection('board');
     db.coupon = db.collection('coupon');
 
@@ -21,8 +21,8 @@ client.connect(function(err){
       client.close();
     }, 1000);
 
-    todo1();
-  });
+    todo9();
+  // });
 });
 
 // 등록할 게시물
