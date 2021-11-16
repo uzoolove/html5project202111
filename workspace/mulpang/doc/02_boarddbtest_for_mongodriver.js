@@ -145,7 +145,12 @@ function todo10(){
 // 3. 판매시작일의 내림차순으로 정렬.
 // 4. 한페이지당 5건 일때 2페이지를 조회.
 function todo11(){
-  db.coupon.find().project({couponName: 1, 'saleDate.start': 1, _id: 0}).toArray(function(err, data){    
+  db.coupon.find()
+    .project({couponName: 1, 'saleDate.start': 1, _id: 0})
+    .sort({'saleDate.start': -1}) // -1: 내림차순, 1: 오름차순
+    .skip(5)
+    .limit(5)
+    .toArray(function(err, data){    
     myLog('TODO 11. mulpang DB coupon collection 조회', data);
     console.log(data.length);
   });

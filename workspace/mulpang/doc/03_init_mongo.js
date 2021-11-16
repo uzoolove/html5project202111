@@ -608,11 +608,11 @@ function registPurchase(){
 }
 
 var moment = require('moment');
-function getDay(){
-	return moment().format('YYYY-MM-DD');
+function getDay(day){
+	return moment().add(day, 'days').format('YYYY-MM-DD');
 }
-function getTime(){
-	return moment().format('YYYY-MM-DD hh:mm:ss');
+function getTime(day, time){
+	return moment().add(day, 'days').add(time, 'seconds').format('YYYY-MM-DD hh:mm:ss');
 }
 
 // 모든 쿠폰명을 출력한다.
