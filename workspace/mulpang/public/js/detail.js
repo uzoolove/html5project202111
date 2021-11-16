@@ -23,7 +23,9 @@ function setGalleryEvent(){
 
 // 상세보기 닫기 클릭
 function setCloseEvent(){
-	
+	$('.btn_close_coupon_detail').click(function(){
+    window.history.back();
+  });
 }
 
 // 관심쿠폰 등록 이벤트
