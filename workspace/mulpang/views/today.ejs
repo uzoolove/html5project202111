@@ -51,6 +51,13 @@
               </section>
             </article>
           <% }); %>
+
+          <% for(var i=list.length; i<5; i++){ %>
+            <article class="p<%=i%> no_content">
+              <h1>등록된 상품이 없습니다.</h1>
+            </article>
+          <% } %>
+
 				</div>
 			</section>
 			<div id="coupon_control">
