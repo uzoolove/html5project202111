@@ -2,7 +2,20 @@ var MongoClient = require('mongodb').MongoClient;
 var util = require('util');
 var db;
 // DB 접속
+const url = 'mongodb://localhost:27017';
+const client = new MongoClient(url, { useUnifiedTopology: true });
 
+// Database Name
+const dbName = 'myProject';
+
+// Use connect method to connect to the server
+client.connect(function(err){
+  if(err) console.error(err);
+  console.log('Connected successfully to server');
+  db = client.db(dbName);
+  db.board = db.collection('board');
+  db.coupon = db.collection('coupon');
+});
 
 // 등록할 게시물
 var b1 = {no: 1, name: "admin", title: "[공지]게시판 사용규칙 안내입니다.", content: "잘 쓰세요."};
