@@ -14,7 +14,11 @@ function setTabEvent(){
 
 // 갤러리 이미지 클릭
 function setGalleryEvent(){
-	
+  var bigPhoto = $('.big_photo > img');
+	$('.photo_list a').click(function(event){
+    event.preventDefault(); // 브라우저의 기본동작 취소
+    bigPhoto.attr('src', $(this).attr('href'));
+  });
 }
 
 // 상세보기 닫기 클릭
