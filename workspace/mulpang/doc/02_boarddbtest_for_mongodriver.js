@@ -6,7 +6,8 @@ const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url, { useUnifiedTopology: true });
 
 // Database Name
-const dbName = 'myProject';
+// const dbName = 'myProject';
+const dbName = 'mulpang';
 
 // Use connect method to connect to the server
 client.connect(function(err){
@@ -21,7 +22,7 @@ client.connect(function(err){
       client.close();
     }, 1000);
 
-    todo9();
+    todo11();
   // });
 });
 
@@ -132,7 +133,16 @@ function todo9(){
 // TODO 10. 2번 게시물 삭제
 // deleteOne({검색 조건})
 function todo10(){
-	
+	db.board.deleteOne({no: 2}, function(err, data){
+    console.log(data.result);
+    list('TODO 10. 2번 게시물 삭제');
+  });
+}
+
+// TODO 11. mulpang DB coupon collection 조회
+// 1. 모든 쿠폰 목록을 조회한다.
+function todo11(){
+
 }
 
 
