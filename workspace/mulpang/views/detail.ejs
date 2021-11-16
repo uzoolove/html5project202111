@@ -99,8 +99,11 @@
                   <time datetime="<%=coupon.saleDate.finish%>"><%=coupon.saleDate.finish%></time>
                 </li>
               </ul>
-              <!-- <a href="/buy.html" class="buy">구매하기</a> -->
-							<span class="soldout">매진</span>
+              <% if(coupon.quantity-coupon.buyQuantity > 0){ %>
+                <a href="/purchase/<%=coupon._id%>" class="buy">구매하기</a>
+              <% }else{ %>
+                <span class="soldout">매진</span>
+              <% } %>
             </section>
             <div class="coupon_tab">
 							<section class="gallery">
