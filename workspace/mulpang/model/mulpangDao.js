@@ -50,7 +50,10 @@ module.exports.couponList = function(cb){
 	};
 	
 	// TODO 전체 쿠폰 목록을 조회한다.
-	
+  var count = 5;
+	db.coupon.find(query).project(fields).limit(count).toArray(function(err, result){
+    cb(result);
+  });
 };
 
 // 쿠폰 상세 조회
