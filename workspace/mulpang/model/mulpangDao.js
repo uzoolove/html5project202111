@@ -59,6 +59,33 @@ module.exports.couponList = function(cb){
 // 쿠폰 상세 조회
 module.exports.couponDetail = function(_id, cb){
 	// coupon, shop, epilogue 조인
+  db.coupon.aggregate([
+    {
+      $match: { _id: ObjectId(_id) }
+    }, {
+      // shop 조인
+      $lookup: {
+        from: 'shop',
+        localField: 'shopId',   // coupon.shopId
+        foreignField: '_id',  // shop._id
+        as: 'shop'
+      }
+    }, {
+      // shop 조인 결과를(배열) 낱개의 속성으로 변환
+      $unwind: '$shop'
+    }, {
+      // epilogue 조인
+      $lookup: {
+        from: 'epilogue',
+        localField: '_id',   // coupon._id
+        foreignField: 'couponId',  // epilogue.couponId
+        as: 'epilogueList'
+      }
+    }
+  ]).next(function(err, coupon){
+    console.log(coupon);
+    cb(coupon);
+  });
 	
 	// 뷰 카운트를 하나 증가시킨다.
 	

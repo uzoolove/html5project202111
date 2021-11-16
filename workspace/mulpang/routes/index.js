@@ -14,6 +14,13 @@ router.get('/today', function(req, res, next) {
   });  
 });
 
+// 상세 조회
+router.get('/coupons/:no', function(req, res, next) {
+  model.couponDetail(req.params.no, function(coupon){
+    res.render('detail', {coupon});
+  });
+});
+
 
 // http://localhost/today.html -> req.params.page = 'today'
 router.get('/:page.html', function(req, res, next) {
