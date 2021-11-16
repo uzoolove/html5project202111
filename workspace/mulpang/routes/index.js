@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../model/mulpangDao');
+var MyUtil = require('../utils/myutil');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -17,7 +18,7 @@ router.get('/today', function(req, res, next) {
 // 상세 조회
 router.get('/coupons/:no', function(req, res, next) {
   model.couponDetail(req.params.no, function(coupon){
-    res.render('detail', {coupon});
+    res.render('detail', {coupon, toStar: MyUtil.toStar});
   });
 });
 
