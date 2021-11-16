@@ -83,19 +83,27 @@ function todo5(){
 // TODO 6. 첫번째 게시물 조회(1건)
 // findOne()
 function todo6(){
-	
+  db.board.findOne(function(err, data){
+    myLog('TODO 6. 첫번째 게시물 조회(1건)', data);
+    todo7();
+  });
 }
 
 // TODO 7. 게시물 조회(lee가 작성한 데이터 1건 조회)
 // findOne({검색조건})
 function todo7(){
-	
+	db.board.findOne({name: 'lee'}, function(err, data){
+    myLog('TODO 7. 게시물 조회(lee가 작성한 데이터 1건 조회)', data);
+    todo8();
+  });
 }
 
 // TODO 8. 게시물 수정(3번 게시물의 내용 수정)
 // updateOne({검색조건}, {수정할 문서})
 function todo8(){
-	
+	db.board.updateOne({no: 3}, {$set: {content: '수정함.'}}, function(err, data){
+    list('TODO 8. 게시물 수정(3번 게시물의 내용 수정)', todo9);
+  });
 }
 
 // 전체 게시물을 조회하여 지정한 문자열을 출력하고
