@@ -142,7 +142,9 @@ function todo10(){
 // TODO 11. mulpang DB coupon collection 조회
 // 1. 모든 쿠폰 목록을 조회한다.
 function todo11(){
-
+  db.coupon.find().toArray(function(err, data){
+    myLog('TODO 11. mulpang DB coupon collection 조회', data);
+  });
 }
 
 
