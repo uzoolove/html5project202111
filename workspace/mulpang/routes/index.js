@@ -22,6 +22,13 @@ router.get('/coupons/:no', function(req, res, next) {
   });
 });
 
+// 쿠폰 구매 화면
+router.get('/purchase/:no', function(req, res, next) {
+  model.buyCouponForm(req.params.no, function(coupon){
+    res.render('buy', {coupon});
+  });
+});
+
 
 // http://localhost/today.html -> req.params.page = 'today'
 router.get('/:page.html', function(req, res, next) {
