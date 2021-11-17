@@ -23,7 +23,7 @@
             <!-- 구매하기 -->
             <section class="form_section">
               <h1>구매하기</h1>
-              <form novalidate>
+              <form>
                 <input type="hidden" name="couponId" value="<%=coupon._id%>">
                 <input type="hidden" name="unitPrice" value="<%=coupon.price%>">
                 <img src="/css/svg/cart_form.svg">
@@ -32,7 +32,8 @@
                     <tr>
                       <th><label for="buyQuantity">구매수량</label></th>
                       <td class="number_td">
-                        <input type="text" name="quantity">
+                        <input type="number" name="quantity" 
+                          min="1" max="<%=coupon.quantity-coupon.buyQuantity%>" value="1" required>
                       </td>
                     </tr>
                     <tr>
