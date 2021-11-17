@@ -41,7 +41,11 @@ module.exports.couponList = function(qs={}, cb){
   if(qs.location){
     query['region'] = qs.location;
   }
-	// 4. 검색어	
+	// 4. 검색어
+  if(qs.keyword && qs.keyword.trim()!=''){
+    var regExp = new RegExp(qs.keyword, 'i');
+    query['$or'] = [{couponName: regExp}, {desc: regExp}];
+  }
 
 	// 정렬 옵션
 	var orderBy = {};
