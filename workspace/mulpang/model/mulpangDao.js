@@ -142,7 +142,27 @@ module.exports.buyCoupon = function(params, cb){
 	
 // 추천 쿠폰 조회
 var topCoupon = module.exports.topCoupon = function(condition, cb){
-	
+	var order = {};
+  order[condition] = -1;
+
+  var query = {};
+  var now = moment().format('YYYY-MM-DD hh:mm:ss');
+  query['saleDate.start'] = {$lte: now};
+  query['saleDate.finish'] = {$gte: now};
+
+  db.coupon.aggregate([
+    { $match: query }, 
+    { $sort: order }, 
+    { $limt: 5 }, 
+    {
+      $project: {
+        couponName: 1,
+        value: '$'+condition
+      }
+    }
+  ]).toArray(function(err, result){
+    cb(result);
+  });
 };
 
 // 지정한 쿠폰 아이디 목록을 받아서 남은 수량을 넘겨준다.
