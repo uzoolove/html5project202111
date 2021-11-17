@@ -79,10 +79,16 @@ module.exports.couponList = function(qs={}, cb){
     count = 5;
     offset = (qs.page-1) * count;
   }
-	db.coupon.find(query).project(fields).sort(orderBy).skip(offset).limit(count).toArray(function(err, result){
-    console.log(result.length, '건');
-    cb(result);
+
+	var cursor = db.coupon.find(query);
+  cursor.count(function(err, totalCount){
+    cursor.project(fields).sort(orderBy).skip(offset).limit(count).toArray(function(err, result){
+      console.log(result.length, '건');
+      result.totalPage = Math.floor((totalCount+count-1)/count);
+      cb(result);
+    });
   });
+
 };
 
 // 쿠폰 상세 조회

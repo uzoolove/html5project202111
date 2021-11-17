@@ -21,6 +21,13 @@ router.get('/today', function(req, res, next) {
     }
   }
   model.couponList(req.query, function(list){
+    list.page = {};
+    if(req.query.page > 1){
+      list.page.pre = req.url.replace('page='+req.query.page, 'page='+(req.query.page-1));
+    }
+    if(req.query.page < list.totalPage){
+      list.page.next = req.url.replace('page='+req.query.page, 'page='+(req.query.page+1));
+    }
     res.render('today', {list: list, query: req.query, options: MyUtil.generateOptions});
   });  
 });
