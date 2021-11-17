@@ -153,7 +153,7 @@ var topCoupon = module.exports.topCoupon = function(condition, cb){
   db.coupon.aggregate([
     { $match: query }, 
     { $sort: order }, 
-    { $limt: 5 }, 
+    { $limit: 5 }, 
     {
       $project: {
         couponName: 1,
