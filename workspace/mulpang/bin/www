@@ -91,5 +91,5 @@ function onListening() {
 
 
 // socket.io 서버 구동
-var socketio = rquire('socket.io')(server);
+var socketio = require('socket.io')(server);
 app.set('io', socketio);
