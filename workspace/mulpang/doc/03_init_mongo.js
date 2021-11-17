@@ -168,26 +168,6 @@ function registCoupon(){
    			viewCount: 45,
    			satisfactionAvg: 2.435345
    		},
-       {
-        _id: couponObjId[0],
-        shopId: shopObjId[0]._id, 
-        region: "강남",
-        position: {lat: 37.501263, lng: 127.028010},
-        couponName: "물냉면", 
-        primeCost: 8000, 
-        price: 6000, 
-        quantity: 203, 
-        saleDate: {start: getDay(-2), finish: getDay(10)}, 
-        useDate: {start: getDay(-2), finish: getDay(30)}, 
-        image: {main: {file: "coupon_01.jpg", desc: "물냉면 메인 이미지"}, detail: {file: "coupon_01_detail.jpg", desc: "물냉면 상세 이미지"}, etc: []}, 
-        desc: "맛있는 물냉이 6000원. 반값에 제공합니다.", 
-        comment: "한 테이블에 하나만 사용 가능.", 
-        buyQuantity: 203, 
-        regDate: getDay(-3),
-        epilogueCount: 7,
-        viewCount: 200,
-        satisfactionAvg: 3.54354353
-       },
    		{
    			_id: couponObjId[2],
    			shopId: shopObjId[0]._id, 
@@ -288,6 +268,26 @@ function registCoupon(){
    			viewCount: 34,
    			satisfactionAvg: 3.5
    		},
+      {
+        _id: couponObjId[0],
+        shopId: shopObjId[0]._id, 
+        region: "강남",
+        position: {lat: 37.501263, lng: 127.028010},
+        couponName: "물냉면", 
+        primeCost: 8000, 
+        price: 6000, 
+        quantity: 203, 
+        saleDate: {start: getDay(-2), finish: getDay(10)}, 
+        useDate: {start: getDay(-2), finish: getDay(30)}, 
+        image: {main: {file: "coupon_01.jpg", desc: "물냉면 메인 이미지"}, detail: {file: "coupon_01_detail.jpg", desc: "물냉면 상세 이미지"}, etc: []}, 
+        desc: "맛있는 물냉이 6000원. 반값에 제공합니다.", 
+        comment: "한 테이블에 하나만 사용 가능.", 
+        buyQuantity: 203, 
+        regDate: getDay(-3),
+        epilogueCount: 7,
+        viewCount: 200,
+        satisfactionAvg: 3.54354353
+      },
    		{
    			_id: couponObjId[7],
    			shopId: shopObjId[0]._id, 
