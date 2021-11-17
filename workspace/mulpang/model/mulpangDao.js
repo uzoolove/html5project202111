@@ -21,7 +21,8 @@ client.connect(function(err){
 });
 
 // 쿠폰 목록조회
-module.exports.couponList = function(qs={}, cb){
+module.exports.couponList = function(qs, cb){
+  qs = qs || {};
 	// 검색 조건
 	var query = {};
 	// 1. 판매 시작일이 지난 쿠폰, 구매 가능 쿠폰(기본 검색조건)	
