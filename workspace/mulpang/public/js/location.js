@@ -113,8 +113,17 @@ function addCouponToMap(){
 
 	// 2.2 지도 범위 내의 쿠폰을 슬라이더에 보여준다.
 	function showSlider(){
-		
+		var bounds = map.getBounds();
+    articleList.each(function(){
+      var article = $(this);
+      if(bounds.contains(article.data('position'))){
+        article.show();
+      }else{
+        article.hide();
+      }
+    });
 		// 첫번째 쿠폰으로 슬라이더 이동
+    slide(0);
 		
 		// 현재 위치를 history에 기록
 		
@@ -122,11 +131,12 @@ function addCouponToMap(){
 
 	// 지도 로딩완료 이벤트
 	google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
-		
+		showSlider();
 		// 2.3 지도의 범위가 변경될 경우 지도안의 쿠폰을 슬라이더에 보여주도록 이벤트 추가
-		
+		map.addListener('zoom_changed', showSlider);
+    map.addListener('dragend', showSlider);
 		// 3. 슬라이드 이벤트 추가
-		
+		setSlideEvent();
 	});
 }
 	
