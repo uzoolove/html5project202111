@@ -54,18 +54,26 @@
                     </tr>
                     <tr>
                       <th><label for="cardNumber">카드번호</label></th>
-                      <td><input type="text" name="cardNumber"></td>
+                      <td>
+                        <input type="text" name="cardNumber" 
+                            maxlength="16" pattern="^\d{16}$" value="1234567890123456" required>
+                      </td>
                     </tr>
                     <tr>
                       <th><label>카드 유효 기간</label></th>
                       <td>
-                        <input type="text" name="cardExpireMonth" title="유효기간 월"> 
-                        / <input type="text" name="cardExpireYear" title="유효기간 년">
+                        <input type="number" name="cardExpireMonth" title="유효기간 월"
+                          min="1" max="12" value="11" required placeholder="MM"> 
+                        / <input type="number" name="cardExpireYear" title="유효기간 년"
+                            min="2021" max="2030" value="2025" required placeholder="YYYY">
                       </td>
                     </tr>
                     <tr>
                       <th><label for="csv">CSV코드</label></th>
-                      <td><input type="text" name="csv"></td>
+                      <td>
+                        <input type="text" name="csv" 
+                          maxlength="3" pattern="^\d{3}$" value="123" required placeholder="카드 뒷면 3자리 숫자">
+                      </td>
                     </tr>
                   </tbody>
                 </table>
