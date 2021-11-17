@@ -59,7 +59,9 @@ router.get('/topCoupon', function(req, res, next){
 });
 // 모두 메뉴
 router.get('/all', function(req, res, next){
-  res.render('all');
+  model.couponList(function(list){
+    res.render('all', {list});
+  });
 });
 // 쿠폰 남은 수량 조회
 router.get('/couponQuantity', function(req, res, next){
