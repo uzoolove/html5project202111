@@ -126,7 +126,10 @@ function addCouponToMap(){
     slide(0);
 		
 		// 현재 위치를 history에 기록
-		
+		var center = map.getCenter();
+    var qs = center.lat() + ',' + center.lng() + ',' + map.getZoom();
+    var url = 'location?' + qs;
+    window.history.replaceState({}, 'map', url);
 	}
 
 	// 지도 로딩완료 이벤트
