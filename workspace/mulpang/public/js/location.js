@@ -34,6 +34,8 @@ function initMap(){
         lng: position.coords.longitude
       };
 
+      console.log(position.coords.accuracy);
+
       map.setCenter(here);
       
       // 1.4 현재 위치에 마커 표시
