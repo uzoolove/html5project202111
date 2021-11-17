@@ -40,6 +40,27 @@ router.post('/purchase', function(req, res, next) {
   });
 });
 
+// 근처 메뉴
+router.get('/location', function(req, res, next){
+  res.render('location');
+});
+// 추천 메뉴
+router.get('/best', function(req, res, next){
+  res.render('best');
+});
+// top5 쿠폰 조회
+router.get('/topCoupon', function(req, res, next){
+  res.json([]);
+});
+// 모두 메뉴
+router.get('/all', function(req, res, next){
+  res.render('all');
+});
+// 쿠폰 남은 수량 조회
+router.get('/couponQuantity', function(req, res, next){
+  res.end('success');
+});
+
 
 // http://localhost/today.html -> req.params.page = 'today'
 router.get('/:page.html', function(req, res, next) {
