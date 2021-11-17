@@ -49,9 +49,14 @@ module.exports.couponList = function(qs={}, cb){
 
 	// 정렬 옵션
 	var orderBy = {};
-	// 1. 사용자 지정 정렬 옵션	
-	// 2. 판매 시작일 내림차순(최근 쿠폰)	
+	// 1. 사용자 지정 정렬 옵션
+  if(qs.order){
+    orderBy[qs.order] = -1; // 내림차순
+  }
+	// 2. 판매 시작일 내림차순(최근 쿠폰)
+  orderBy['saleDate.start'] = -1;
 	// 3. 판매 종료일 오름차순(종료 임박 쿠폰)
+  orderBy['saleDate.finish'] = 1;
 
 	// 출력할 속성 목록
 	var fields = {
@@ -69,7 +74,7 @@ module.exports.couponList = function(qs={}, cb){
 	
 	// TODO 전체 쿠폰 목록을 조회한다.
   var count = 0;
-	db.coupon.find(query).project(fields).limit(count).toArray(function(err, result){
+	db.coupon.find(query).project(fields).sort(orderBy).limit(count).toArray(function(err, result){
     console.log(result.length, '건');
     cb(result);
   });
