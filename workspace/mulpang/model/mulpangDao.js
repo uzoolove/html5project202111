@@ -21,12 +21,26 @@ client.connect(function(err){
 });
 
 // 쿠폰 목록조회
-module.exports.couponList = function(cb){
+module.exports.couponList = function(qs={}, cb){
 	// 검색 조건
 	var query = {};
 	// 1. 판매 시작일이 지난 쿠폰, 구매 가능 쿠폰(기본 검색조건)	
+  var now = moment().format('YYYY-MM-DD hh:mm:ss');
+  query['saleDate.start'] = {$lte: now};
+  query['saleDate.finish'] = {$gte: now};
 	// 2. 전체/구매가능/지난쿠폰
+  switch(qs.date){
+    case 'all':
+      delete query['saleDate.finish'];
+      break;
+    case 'past':
+      query['saleDate.finish'] = {$lt: now};
+      break;
+  }
 	// 3. 지역명	
+  if(qs.location){
+    query['region'] = qs.location;
+  }
 	// 4. 검색어	
 
 	// 정렬 옵션
@@ -52,6 +66,7 @@ module.exports.couponList = function(cb){
 	// TODO 전체 쿠폰 목록을 조회한다.
   var count = 0;
 	db.coupon.find(query).project(fields).limit(count).toArray(function(err, result){
+    console.log(result.length, '건');
     cb(result);
   });
 };
