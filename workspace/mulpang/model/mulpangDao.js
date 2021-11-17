@@ -57,7 +57,7 @@ module.exports.couponList = function(cb){
 };
 
 // 쿠폰 상세 조회
-module.exports.couponDetail = function(_id, cb){
+module.exports.couponDetail = function(io, _id, cb){
 	// coupon, shop, epilogue 조인
   db.coupon.aggregate([
     {
@@ -84,14 +84,16 @@ module.exports.couponDetail = function(_id, cb){
     }
   ]).next(function(err, coupon){
     console.log(coupon);
+	  // 뷰 카운트를 하나 증가시킨다.
+    db.coupon.updateOne({_id: coupon._id}, {$inc: {viewCount: 1}}, function(){
+      // 웹소켓으로 수정된 조회수 top5를 전송한다.
+      topCoupon('viewCount', function(result){
+        io.emit('top5', result);
+      });
+    });
+
     cb(coupon);
   });
-	
-	// 뷰 카운트를 하나 증가시킨다.
-	
-	// 웹소켓으로 수정된 조회수 top5를 전송한다.
-	
-
 };
 
 // 구매 화면에 보여줄 쿠폰 정보 조회
