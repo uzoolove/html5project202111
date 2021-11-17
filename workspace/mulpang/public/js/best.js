@@ -1,23 +1,11 @@
-// RGraph(http://www.rgraph.net) 라이브러리를 import 한다.
-Util.require('lib/rgraph/RGraph.common.core.js');
-Util.require('lib/rgraph/RGraph.common.dynamic.js');
-Util.require('lib/rgraph/RGraph.hbar.js');
-
-// Chart.js(http://www.chartjs.org) 라이브러리를 import 한다.
-Util.require('lib/Chart.js');
-
-// Flotr2(http://humblesoftware.com/flotr2) 라이브러리를 import 한다.
-Util.require('lib/flotr2.js');
-
-// socket.io 라이브러리
-Util.require('/socket.io/socket.io.js');
-
 function testChart(){
-	var data = [{couponName: '와플세트', value: 345}
-					, {couponName: '베스킨라빈스', value: 245}
-					, {couponName: '일말에', value: 128}
-					, {couponName: '자연산 활어회', value: 99}
-					, {couponName: '치맥', value: 50}];
+	var data = [
+    {couponName: '와플세트', value: 345}
+    , {couponName: '베스킨라빈스', value: 245}
+    , {couponName: '일말에', value: 128}
+    , {couponName: '자연산 활어회', value: 99}
+    , {couponName: '치맥', value: 50}
+  ];
 	
 	drawSaleGraph(data);	
 	// drawPointGraph(data);
@@ -33,7 +21,12 @@ $(function(){
 function drawSaleGraph(data){
 	var context = document.querySelector('#graph_by_sale').getContext('2d');
 	// TODO x, y 축 그리기
-
+  context.beginPath();
+  context.moveTo(70, 10);
+  context.lineTo(70, 231);
+  context.lineTo(470, 231);
+  context.lineWidth = 2;
+  context.stroke();
 
 	// 막대그래프 그리기
 	var r = 210 / data[0].value; // 높이 비율
