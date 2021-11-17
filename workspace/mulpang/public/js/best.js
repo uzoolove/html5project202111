@@ -15,6 +15,10 @@ function testChart(){
 
 $(function(){
 	// testChart();
+  $.getJSON('/topCoupon', {condition: 'buyQuantity'}, drawSaleGraph);
+  $.getJSON('/topCoupon', {condition: 'satisfactionAvg'}, drawPointGraph);
+  $.getJSON('/topCoupon', {condition: 'viewCount'}, drawViewGraph);
+  $.getJSON('/topCoupon', {condition: 'epilogueCount'}, drawReplyGraph);
 });
 
 // 판매순 그래프를 그린다.(Canvas)
