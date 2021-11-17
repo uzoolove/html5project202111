@@ -42,7 +42,9 @@ router.post('/purchase', function(req, res, next) {
 
 // 근처 메뉴
 router.get('/location', function(req, res, next){
-  res.render('location');
+  model.couponList(function(list){
+    res.render('location', {list});
+  });  
 });
 // 추천 메뉴
 router.get('/best', function(req, res, next){
