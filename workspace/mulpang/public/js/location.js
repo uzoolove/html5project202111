@@ -14,6 +14,7 @@
 
 // 1. 지도를 보여주고 현재 위치 찾기
 var map;
+var search = location.search.substring(1);
 function initMap(){
   $(function(){
     // 1.1 구글맵 로딩
@@ -22,6 +23,14 @@ function initMap(){
       center: {lat: 37.52719892637148, lng: 127.02838793322601},
       zoom: 14
     };
+
+    if(search){
+      var qsArray = search.split(',');
+      mapOptions = {
+        center: {lat: parseFloat(qsArray[0]), lng: parseFloat(qsArray[1])},
+        zoom: parseInt(qsArray[2])
+      };
+    }
 
     map = new google.maps.Map(mapContainer, mapOptions);
     // 1.2 현재 위치 찾기
@@ -36,7 +45,7 @@ function initMap(){
 
       console.log(position.coords.accuracy);
 
-      map.setCenter(here);
+      if(!search) map.setCenter(here);
       
       // 1.4 현재 위치에 마커 표시
       new google.maps.Marker({
