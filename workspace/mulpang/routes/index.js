@@ -10,6 +10,16 @@ router.get('/', function(req, res, next) {
 
 // 오늘 메뉴
 router.get('/today', function(req, res, next) {
+  if(req.query.page){
+    req.query.page = parseInt(req.query.page);
+  }else{
+    req.query.page = 1;
+    if(req.query.date){
+      req.url += '&page=1';
+    }else{
+      req.url += '?page=1';
+    }
+  }
   model.couponList(req.query, function(list){
     res.render('today', {list: list, query: req.query, options: MyUtil.generateOptions});
   });  

@@ -74,7 +74,12 @@ module.exports.couponList = function(qs={}, cb){
 	
 	// TODO 전체 쿠폰 목록을 조회한다.
   var count = 0;
-	db.coupon.find(query).project(fields).sort(orderBy).limit(count).toArray(function(err, result){
+  var offset = 0;
+  if(qs.page){
+    count = 5;
+    offset = (qs.page-1) * count;
+  }
+	db.coupon.find(query).project(fields).sort(orderBy).skip(offset).limit(count).toArray(function(err, result){
     console.log(result.length, '건');
     cb(result);
   });
