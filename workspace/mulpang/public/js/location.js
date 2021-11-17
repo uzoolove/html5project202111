@@ -17,7 +17,13 @@ var map;
 function initMap(){
   $(function(){
     // 1.1 구글맵 로딩
-    
+    var mapContainer = document.querySelector('#location_map');
+    var mapOptions = {
+      center: {lat: 37.52719892637148, lng: 127.02838793322601},
+      zoom: 14
+    };
+
+    map = new google.maps.Map(mapContainer, mapOptions);
     // 1.2 현재 위치 찾기
     
     function success(position){
