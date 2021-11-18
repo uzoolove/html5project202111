@@ -3,7 +3,7 @@ $(function(){
 	$('#profile').change(common.upload.profileImage);
 	
 	// TODO 회원 가입 버튼 클릭 이벤트
-	$('.form_section > from').submit(registMember);
+	$('.form_section > form').submit(registMember);
 });
 
 // 회원 가입
