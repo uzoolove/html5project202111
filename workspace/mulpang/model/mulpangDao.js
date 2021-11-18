@@ -250,12 +250,15 @@ module.exports.registMember = function(params, cb){
 // 로그인 처리
 module.exports.login = function(params, cb){
 	// TODO 지정한 아이디와 비밀번호로 회원 정보를 조회한다.
-	db.member.findOne(params, {projection: {profileImage: 1}}, function(err, result){
-    if(!result){  // 로그인 실패
-      err = {message: '아이디와 비밀번호를 확인하시기 바랍니다.'};
-    }
-    cb(err, result);
-  });
+	// db.member.findOne(params, {projection: {profileImage: 1}}, function(err, result){
+  //   if(!result){  // 로그인 실패
+  //     err = {message: '아이디와 비밀번호를 확인하시기 바랍니다.'};
+  //   }
+  //   cb(err, result);
+  // });
+
+  err = {message: '해당 아이디가 없습니다.'};
+  err = {message: '비밀번호가 맞지 않습니다.'};
 };
 
 // 회원 정보 조회
