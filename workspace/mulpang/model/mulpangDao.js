@@ -223,12 +223,28 @@ function saveImage(tmpFileName, profileImage){
   var org = path.join(tmpDir, tmpFileName);
   var dest = path.join(profileDir, profileImage);
 	// TODO 임시 이미지를 member 폴더로 이동시킨다.
-	
+	fs.rename(org, dest, function(){
+    if(err) console.error(err);
+  });
 }
 
 // 회원 가입
 module.exports.registMember = function(params, cb){
-	
+	var member = {
+    _id: params._id,
+    password: params.password,
+    profileImage: params._id,
+    regDate: moment().format('YYYY-MM-DD hh:mm:ss')
+  };
+  db.member.insertOne(member, function(err, result){
+    // 아이디가 중복된 경우
+    if(err && err.code == 11000){
+      err = {message: '이미 등록된 이메일입니다.'};
+    }else{
+      saveImage(params.tmpFileName, member.profileImage);
+    }
+    cb(err, result);
+  });
 };
 
 // 로그인 처리
