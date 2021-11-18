@@ -205,7 +205,15 @@ var topCoupon = module.exports.topCoupon = function(condition, cb){
 
 // 지정한 쿠폰 아이디 목록을 받아서 남은 수량을 넘겨준다.
 module.exports.couponQuantity = function(coupons, cb){
-
+  coupons = coupons.map(function(couponId){
+    return ObjectId(couponId);
+  });
+  db.coupon.find(
+    {_id: {$in: coupons}}, 
+    {projection: {quantity: 1, buyQuantity: 1, couponName: 1}})
+    .toArray(function(err, result){
+      cb(result);
+  });
 };
 
 // 임시로 저장한 프로필 이미지를 회원 이미지로 변경한다.
