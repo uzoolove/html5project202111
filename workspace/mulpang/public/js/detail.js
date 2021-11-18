@@ -1,5 +1,3 @@
-const common = require("mongodb/lib/bulk/common");
-
 $(function(){
 	setTabEvent();
 	setGalleryEvent();
