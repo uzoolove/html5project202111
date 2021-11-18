@@ -256,9 +256,19 @@ module.exports.login = function(params, cb){
   //   }
   //   cb(err, result);
   // });
-
-  err = {message: '해당 아이디가 없습니다.'};
-  err = {message: '비밀번호가 맞지 않습니다.'};
+  db.member.findOne({_id: params._id}, function(err, result){
+    if(result){
+      db.member.findOne(params, {projection: {profileImage: 1}}, function(err, result){
+        if(!result){
+          err = {message: '비밀번호가 맞지 않습니다.'};
+        }
+        cb(err, result);
+      });
+    }else{
+      err = {message: '해당 아이디가 없습니다.'};
+      cb(err, result);
+    }
+  });
 };
 
 // 회원 정보 조회
