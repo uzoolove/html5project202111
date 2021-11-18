@@ -258,16 +258,13 @@ module.exports.login = function(params, cb){
   // });
   db.member.findOne({_id: params._id}, function(err, result){
     if(result){
-      db.member.findOne(params, {projection: {profileImage: 1}}, function(err, result){
-        if(!result){
-          err = {message: '비밀번호가 맞지 않습니다.'};
-        }
-        cb(err, result);
-      });
+      if(params.password != result.password){
+        err = {message: '비밀번호가 맞지 않습니다.'};
+      }
     }else{
       err = {message: '해당 아이디가 없습니다.'};
-      cb(err, result);
     }
+    cb(err, err?null:{_id: result._id, profileImage: result.profileImage});
   });
 };
 
