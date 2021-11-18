@@ -30,6 +30,7 @@ router.post('/simpleLogin', function(req, res, next) {
     if(err){
       res.json({errors: err});
     }else{
+      req.session.user = user;
       res.json(user);
     }
   });

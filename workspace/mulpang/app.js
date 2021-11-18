@@ -26,7 +26,11 @@ app.use(/^((?!\/couponQuantity).)*$/, session({
   rolling: true,  // 매 요청마다 세션 갱신
   resave: false,  // 세션이 수정되지 않으면 서버에 다시 저장하지 않음
   saveUninitialized: false  // 세션에 아무 값도 저장하지 않으면 클라이언트에 전송안함
-}));
+}), function(req, res, next){
+  // ejs 렌더링에 사용할 로그인 정보 저장
+  res.locals.user = req.session.user;
+  next();
+});
 
 app.use(logger('dev'));
 

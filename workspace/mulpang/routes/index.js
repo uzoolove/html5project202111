@@ -61,7 +61,9 @@ router.post('/purchase', function(req, res, next) {
 // 근처 메뉴
 router.get('/location', function(req, res, next){
   model.couponList(null, function(list){
-    res.render('location', {list});
+    // res.render('location', {list});
+    res.locals.list = list;
+    res.render('location');
   });  
 });
 // 추천 메뉴
