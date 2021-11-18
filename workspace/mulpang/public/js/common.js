@@ -21,8 +21,10 @@ common.cart.showCart = function(){
     }
     $('.interest_cnt').text(Object.keys(cart).length);
     common.cart.setRemoveCartEvent();
-    
-    common.cart.requestQuantity();
+
+    if(Notification.permission == 'granted'){
+      common.cart.requestQuantity();
+    }    
   }
 };
 
@@ -67,7 +69,11 @@ common.cart.requestQuantity = function(){
 
 // 바탕화면 알림 서비스를 보여준다.
 common.cart.showNoti = function(noti){	
-	console.log(noti);
+	var notify = new Notification('마감임박!!!', noti);
+  noti.onclick = function(){
+    notify.close();
+    window.open('/coupons/' + this.tag, '_blank');
+  };
 };
 
 
