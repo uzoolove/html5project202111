@@ -3,7 +3,7 @@ $(function(){
 	$('#profile').change(common.upload.profileImage);
 	
 	// TODO 회원 가입 버튼 클릭 이벤트
-	
+	$('.form_section > from').submit(registMember);
 });
 
 // 회원 가입
@@ -18,7 +18,12 @@ function registMember(){
 			data: $(this).serialize(),			
 			success: function(result){
 				// TODO 가입 결과 출력
-				
+				if(result.errors){
+          alert(result.errors.message);
+        }else{
+          alert($('#email').val() + '님 회원 가입이 완료되었습니다.');
+          location.href = '/';
+        }
 			}
 		});
 	}
