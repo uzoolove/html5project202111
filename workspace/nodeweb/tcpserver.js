@@ -6,6 +6,10 @@ var tcpServer = net.createServer(function(socket){
   });
   socket.on('data', function(data){
     console.log(data.toString());
+    socket.write('HTTP/1.1 200 OK\n');
+    socket.write('\n');
+    socket.write('<h1>Hello</h1>');
+    socket.write('\n');
   });
 });
 tcpServer.listen(1234, function(){

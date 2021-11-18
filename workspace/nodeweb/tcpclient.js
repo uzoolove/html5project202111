@@ -1,7 +1,7 @@
 const net = require('net');
 var target = {
-  host: 'localhost',
-  port: 1234
+  host: 'google.com',
+  port: 80
 };
 
 var socket = new net.Socket();
@@ -12,4 +12,5 @@ socket.connect(target.port, target.host, function(){
   });
   socket.write('GET / HTTP/1.1\n');
   socket.write('\n');
+  
 });
