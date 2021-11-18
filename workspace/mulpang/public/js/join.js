@@ -1,6 +1,6 @@
 $(function(){	
 	// TODO 프로필 이미지 선택 시(common.js의 common.upload.profileImage 함수를 호출한다.)
-	
+	$('#profile').change(common.upload.profileImage);
 	
 	// TODO 회원 가입 버튼 클릭 이벤트
 	
