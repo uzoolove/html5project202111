@@ -223,7 +223,7 @@ function saveImage(tmpFileName, profileImage){
   var org = path.join(tmpDir, tmpFileName);
   var dest = path.join(profileDir, profileImage);
 	// TODO 임시 이미지를 member 폴더로 이동시킨다.
-	fs.rename(org, dest, function(){
+	fs.rename(org, dest, function(err){
     if(err) console.error(err);
   });
 }
