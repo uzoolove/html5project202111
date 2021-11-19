@@ -53,7 +53,8 @@ router.post('/purchase', checkLogin, function(req, res, next) {
   req.body.email = req.session.user._id;
   model.buyCoupon(req.body, function(err, result){
     if(err){
-      res.json({errors: err});
+      next(err);
+      // res.json({errors: err});
     }else{
       res.end('ok');
     }

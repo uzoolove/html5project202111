@@ -20,7 +20,8 @@ router.post('/profileUpload', multer({dest: tmp}).single('profile'), function(re
 router.post('/new', function(req, res, next) {
   model.registMember(req.body, function(err, result){
     if(err){
-      res.json({errors: err});
+      next(err);
+      // res.json({errors: err});
     }else{
       res.end('success');
     }
@@ -30,7 +31,8 @@ router.post('/new', function(req, res, next) {
 router.post('/simpleLogin', function(req, res, next) {
   model.login(req.body, function(err, user){
     if(err){
-      res.json({errors: err});
+      next(err);
+      // res.json({errors: err});
     }else{
       req.session.user = user;
       res.json(user);
@@ -67,7 +69,8 @@ router.get('/', checkLogin, function(req, res, next) {
 router.put('/', checkLogin, function(req, res, next) {
   model.updateMember(req.session.user._id, req.body, function(err, result){
     if(err){
-      res.json({errors: err});
+      next(err);
+      // res.json({errors: err});
     }else{
       res.end('success');
     }
@@ -77,7 +80,8 @@ router.put('/', checkLogin, function(req, res, next) {
 router.post('/epilogue', checkLogin, function(req, res, next) {
   model.insertEpilogue(req.session.user._id, req.body, function(err, result){
     if(err){
-      res.json({errors: err});
+      next(err);
+      // res.json({errors: err});
     }else{
       res.end('success');
     }

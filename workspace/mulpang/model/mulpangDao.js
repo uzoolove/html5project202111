@@ -5,6 +5,7 @@ var path = require('path');
 var fs = require('fs');
 var moment = require('moment');
 var MyUtil = require('../utils/myutil');
+var MyError = require('../errors');
 
 // DB 접속
 var db;
@@ -169,7 +170,8 @@ module.exports.buyCoupon = function(params, cb){
   db.purchase.insertOne(document, function(err, result){
     if(err){
       console.error(err);
-      cb({message: '쿠폰 구매에 실패했습니다. 잠시후 다시 시도하시기 바랍니다.'});
+      cb(MyError.FAIL);
+      // cb({message: '쿠폰 구매에 실패했습니다. 잠시후 다시 시도하시기 바랍니다.'});
     }else{
       // TODO 쿠폰 구매 건수를 하나 증가시킨다.
       db.coupon.updateOne({_id: document.couponId}, {$inc: {buyQuantity: document.quantity}}, function(){
@@ -240,7 +242,8 @@ module.exports.registMember = function(params, cb){
   db.member.insertOne(member, function(err, result){
     // 아이디가 중복된 경우
     if(err && err.code == 11000){
-      err = {message: '이미 등록된 이메일입니다.'};
+      err = MyError.USER_DUPLICATE;
+      // err = {message: '이미 등록된 이메일입니다.'};
     }else{
       saveImage(params.tmpFileName, member.profileImage);
     }
@@ -260,10 +263,12 @@ module.exports.login = function(params, cb){
   db.member.findOne({_id: params._id}, function(err, result){
     if(result){
       if(params.password != result.password){
-        err = {message: '비밀번호가 맞지 않습니다.'};
+        err = MyError.LOGIN_FAIL;
+        // err = {message: '비밀번호가 맞지 않습니다.'};
       }
     }else{
-      err = {message: '해당 아이디가 없습니다.'};
+      err = MyError.LOGIN_FAIL;
+      // err = {message: '해당 아이디가 없습니다.'};
     }
     cb(err, err?null:{_id: result._id, profileImage: result.profileImage});
   });
@@ -318,7 +323,8 @@ module.exports.updateMember = function(userid, params, cb){
 	// 이전 비밀번호로 회원 정보를 조회한다.
   db.member.findOne({_id: userid, password: params.oldPassword}, function(err, member){
     if(!member){
-      err = {message: '이전 비밀번호가 맞지 않습니다.'};
+      err = MyError.PASSWORD_INCRRECT;
+      // err = {message: '이전 비밀번호가 맞지 않습니다.'};
       cb(err);
     }else{
       // 프로필 이미지를 수정할 경우
@@ -366,7 +372,8 @@ module.exports.insertEpilogue = async function(userid, params, cb){
     cb();
   }catch(err){
     console.error(err);
-    cb({errors: '후기 등록에 실패했습니다. 잠시후 다시 이용해 주시기 바랍니다.'});
+    cb(MyError.FAIL);
+    // cb({errors: '후기 등록에 실패했습니다. 잠시후 다시 이용해 주시기 바랍니다.'});
   }
 
   /*
