@@ -75,6 +75,13 @@ router.put('/', checkLogin, function(req, res, next) {
 });
 // 구매 후기 등록
 router.post('/epilogue', checkLogin, function(req, res, next) {
+  model.insertEpilogue(req.session.user._id, req.body, function(err, result){
+    if(err){
+      res.json({errors: err});
+    }else{
+      res.end('success');
+    }
+  });
   res.end('success');
 });
 

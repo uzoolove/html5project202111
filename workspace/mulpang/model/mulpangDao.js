@@ -302,7 +302,8 @@ module.exports.getMember = function(userid, cb){
         couponId: 1,
         regDate: 1,
         'coupon.couponName': 1,
-        'coupon.image.main': 1
+        'coupon.image.main': 1,
+        epilogue: 1
       }
     }, 
     { $sort: {regDate: -1} }
@@ -343,5 +344,45 @@ module.exports.updateMember = function(userid, params, cb){
 
 // 쿠폰 후기 등록
 module.exports.insertEpilogue = function(userid, params, cb){
-	
+  var purchaseId = ObjectId(params.purchaseId);
+  delete params.purchaseId;
+  var epilogue = params;
+  epilogue._id = ObjectId();
+  epilogue.regDate = moment().format('YYYY-MM-DD hh:mm:ss');
+  epilogue.couponId = ObjectId(params.couponId);
+  epilogue.write = userid;
+
+  // 후기 등록
+  db.epilogue.insertOne(epilogue, function(err, result){
+    if(err){
+      console.error(err);
+      cb({errors: '후기 등록에 실패했습니다. 잠시후 다시 이용해 주시기 바랍니다.'});
+    }else{
+      // 구매 컬렉션에 후기 id 등록
+      db.purchase.updateOne({_id: purchaseId}, {$set: {epilogueId: epilogue._id}}, function(err, result){
+        if(err){
+          console.error(err);
+          cb({errors: '후기 등록에 실패했습니다. 잠시후 다시 이용해 주시기 바랍니다.'});
+        }else{
+          // 쿠폰 컬렉션의 후기수와 만족도 평균을 업데이트 한다.
+          db.coupon.findOne({_id: epilogue.couponId}, function(err, coupon){
+            var update = {
+              $inc: {epilogueCount: 1},
+              $set: {satisfactionAvg: (coupon.satisfactionAvg * coupon.epilogueCount) + parseInt(epilogue.satisfaction) / (coupon.epilogueCount+1)}
+            };
+            db.coupon.updateOne({_id: epilogue.couponId}, update, function(err, result){
+              if(err){
+                console.error(err);
+                cb({errors: '후기 등록에 실패했습니다. 잠시후 다시 이용해 주시기 바랍니다.'});
+              }else{
+                cb();
+              }
+            });
+          });
+        }
+      });
+    }
+  });
+
+	cb();
 };
