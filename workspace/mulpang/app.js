@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(/^((?!\/couponQuantity).)*$/, session({
-  cookie: {maxAge: 1000*60},
+  cookie: {maxAge: 1000*60*30},
   secret: 'sometext',
   rolling: true,  // 매 요청마다 세션 갱신
   resave: false,  // 세션이 수정되지 않으면 서버에 다시 저장하지 않음
