@@ -271,7 +271,17 @@ module.exports.login = function(params, cb){
 
 // 회원 정보 조회
 module.exports.getMember = function(userid, cb){
-	
+	db.purchase.aggregate([
+    { $match: { email: userid }}, 
+    // {}, 
+    // {}, 
+    // {}, 
+    // {}, 
+    // {}, 
+    // {}
+  ]).toArray(function(err, result){
+    cb(result);
+  });
 };
 
 // 회원 정보 수정
