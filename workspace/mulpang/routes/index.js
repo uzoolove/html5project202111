@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var model = require('../model/mulpangDao');
 var MyUtil = require('../utils/myutil');
+var checkLogin = require('../middleware/checklogin');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -41,14 +42,15 @@ router.get('/coupons/:no', function(req, res, next) {
 });
 
 // 쿠폰 구매 화면
-router.get('/purchase/:no', function(req, res, next) {
+router.get('/purchase/:no', checkLogin, function(req, res, next) {
   model.buyCouponForm(req.params.no, function(coupon){
     res.render('buy', {coupon});
   });
 });
 
 // 쿠폰 구매
-router.post('/purchase', function(req, res, next) {
+router.post('/purchase', checkLogin, function(req, res, next) {
+  req.body.email = req.session.user._id;
   model.buyCoupon(req.body, function(err, result){
     if(err){
       res.json({errors: err});
