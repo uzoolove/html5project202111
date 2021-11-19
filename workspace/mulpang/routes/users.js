@@ -58,7 +58,9 @@ router.post('/login', function(req, res, next) {
 });
 // 마이 페이지
 router.get('/', checkLogin, function(req, res, next) {
-  res.render('mypage');
+  model.getMember(req.session.user._id, function(result){
+    res.render('mypage', {purchase: result, toStar: MyUtil.toStar});
+  });  
 });
 // 회원 정보 수정
 router.put('/', checkLogin, function(req, res, next) {
