@@ -273,12 +273,39 @@ module.exports.login = function(params, cb){
 module.exports.getMember = function(userid, cb){
 	db.purchase.aggregate([
     { $match: { email: userid }}, 
-    // {}, 
-    // {}, 
-    // {}, 
-    // {}, 
-    // {}, 
-    // {}
+    {
+      $lookup: {
+        from: 'coupon',
+        localField: 'couponId',
+        foreignField: '_id',
+        as: 'coupon'
+      }
+    }, 
+    { $unwind: '$coupon' }, 
+    {
+      $lookup: {
+        from: 'epilogue',
+        localField: 'epilogueId',
+        foreignField: '_id',
+        as: 'epilogue'
+      }
+    }, 
+    {
+      $unwind: {
+        path: '$epilogue',
+        preserveNullAndEmptyArrays: true
+      }
+    }, 
+    {
+      $project: {
+        _id: 1,
+        couponId: 1,
+        regDate: 1,
+        'coupon.couponName': 1,
+        'coupon.image.main': 1
+      }
+    }, 
+    { $sort: {regDate: -1} }
   ]).toArray(function(err, result){
     console.log(result);
     cb(result);
