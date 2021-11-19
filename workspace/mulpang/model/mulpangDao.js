@@ -318,6 +318,7 @@ module.exports.updateMember = function(userid, params, cb){
   db.member.findOne({_id: userid, password: params.oldPassword}, function(err, member){
     if(!member){
       err = {message: '이전 비밀번호가 맞지 않습니다.'};
+      cb(err);
     }else{
       // 프로필 이미지를 수정할 경우
       var tmpFileName = params.tmpFileName;
@@ -327,10 +328,16 @@ module.exports.updateMember = function(userid, params, cb){
       
       // 비밀번호 수정할 경우
       if(params.password.trim() != ''){
-        db.member.updateOne({_id: userid}, {$set: {password: params.password}});
+        db.member.updateOne(
+          {_id: userid}, 
+          {$set: {password: params.password}}, 
+          function(err, result){
+            cb(err);
+        });
+      }else{
+        cb(err);
       }
     }
-    cb(err);
   });
 };
 
