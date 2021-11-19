@@ -65,7 +65,13 @@ router.get('/', checkLogin, function(req, res, next) {
 });
 // 회원 정보 수정
 router.put('/', checkLogin, function(req, res, next) {
-  res.end('success');
+  model.updateMember(req.session.user._id, req.body, function(err, result){
+    if(err){
+      res.json({errors: err});
+    }else{
+      res.end('success');
+    }
+  });
 });
 // 구매 후기 등록
 router.post('/epilogue', checkLogin, function(req, res, next) {
