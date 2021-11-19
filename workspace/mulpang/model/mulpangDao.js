@@ -314,7 +314,14 @@ module.exports.getMember = function(userid, cb){
 
 // 회원 정보 수정
 module.exports.updateMember = function(userid, params, cb){
-	
+	// 이전 비밀번호로 회원 정보를 조회한다.
+  db.member.findOne();
+  err = {message: '이전 비밀번호가 맞지 않습니다.'};
+  // 프로필 이미지를 수정할 경우
+  saveImage();
+  // 비밀번호 수정할 경우
+  db.member.updateOne();
+  cb(err);
 };
 
 // 쿠폰 후기 등록
