@@ -8,6 +8,10 @@ var app = require('../app');
 var debug = require('debug')('mulpang:server');
 var http = require('https');
 
+require('http').createServer(function(req, res){
+  res.writeHead(301, {Location: 'https://localhost' + req.url}).end();
+}).listen(80);
+
 /**
  * Get port from environment and store in Express.
  */
