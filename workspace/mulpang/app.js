@@ -14,6 +14,17 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use('/today', function(req, res, next){
+  // 미들웨어 만드는 방법
+  // 1. req, res, next를 매개변수로 정의한다.
+  // 2. 기능 구현
+  // 3-1. 클라이언트에 응답(res.end(), res.render(), res.json() ...)
+  // 3-2. 다음 미들웨어 호출(next())
+  console.log(req.body);
+  console.log(req.cookies);
+  console.log(req.session);
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,6 +44,14 @@ app.use(/^((?!\/couponQuantity).)*$/, session({
 });
 
 app.use(logger('dev'));
+
+
+app.use('/today', function(req, res, next){
+  console.log(req.body);
+  console.log(req.cookies);
+  console.log(req.session);
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
