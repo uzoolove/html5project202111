@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var model = require('../model/mulpangDao');
+var MyUtil = require('../utils/myutil');
 var checkLogin = require('../middleware/checklogin');
 
 // 회원 가입 화면
