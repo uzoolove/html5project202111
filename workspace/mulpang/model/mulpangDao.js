@@ -368,7 +368,7 @@ module.exports.insertEpilogue = function(userid, params, cb){
           db.coupon.findOne({_id: epilogue.couponId}, function(err, coupon){
             var update = {
               $inc: {epilogueCount: 1},
-              $set: {satisfactionAvg: (coupon.satisfactionAvg * coupon.epilogueCount) + parseInt(epilogue.satisfaction) / (coupon.epilogueCount+1)}
+              $set: {satisfactionAvg: (coupon.satisfactionAvg * coupon.epilogueCount + parseInt(epilogue.satisfaction)) / (coupon.epilogueCount+1)}
             };
             db.coupon.updateOne({_id: epilogue.couponId}, update, function(err, result){
               if(err){
