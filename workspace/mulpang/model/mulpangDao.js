@@ -350,7 +350,7 @@ module.exports.insertEpilogue = function(userid, params, cb){
   epilogue._id = ObjectId();
   epilogue.regDate = moment().format('YYYY-MM-DD hh:mm:ss');
   epilogue.couponId = ObjectId(params.couponId);
-  epilogue.write = userid;
+  epilogue.writer = userid;
 
   // 후기 등록
   db.epilogue.insertOne(epilogue, function(err, result){

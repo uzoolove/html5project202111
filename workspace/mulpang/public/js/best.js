@@ -68,7 +68,7 @@ function drawPointGraph(data){
   var points = [];
   data.forEach(function(coupon){
     labels.push(coupon.couponName);
-		points.push(coupon.value);
+		points.push(coupon.value*20);
   });
   var hbar = new RGraph.HBar('graph_by_point', points);
   hbar.Set('chart.labels', labels);
