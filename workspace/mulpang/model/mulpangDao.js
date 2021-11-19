@@ -280,6 +280,7 @@ module.exports.getMember = function(userid, cb){
     // {}, 
     // {}
   ]).toArray(function(err, result){
+    console.log(result);
     cb(result);
   });
 };
