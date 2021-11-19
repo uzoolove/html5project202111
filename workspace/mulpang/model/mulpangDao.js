@@ -343,7 +343,7 @@ module.exports.updateMember = function(userid, params, cb){
 };
 
 // 쿠폰 후기 등록
-module.exports.insertEpilogue = function(userid, params, cb){
+module.exports.insertEpilogue = async function(userid, params, cb){
   var purchaseId = ObjectId(params.purchaseId);
   delete params.purchaseId;
   var epilogue = params;
@@ -353,6 +353,23 @@ module.exports.insertEpilogue = function(userid, params, cb){
   epilogue.writer = userid;
 
   // 후기 등록
+  // ECMA 2017 async/await
+  try{
+    await db.epilogue.insertOne(epilogue);
+    await db.purchase.updateOne({_id: purchaseId}, {$set: {epilogueId: epilogue._id}});
+    var coupon = await db.coupon.findOne({_id: epilogue.couponId});
+    var update = {
+      $inc: {epilogueCount: 1},
+      $set: {satisfactionAvg: (coupon.satisfactionAvg * coupon.epilogueCount + parseInt(epilogue.satisfaction)) / (coupon.epilogueCount+1)}
+    };
+    await db.coupon.updateOne({_id: epilogue.couponId}, update);
+    cb();
+  }catch(err){
+    console.error(err);
+    cb({errors: '후기 등록에 실패했습니다. 잠시후 다시 이용해 주시기 바랍니다.'});
+  }
+
+  /*
   db.epilogue.insertOne(epilogue, function(err, result){
     if(err){
       console.error(err);
@@ -383,6 +400,5 @@ module.exports.insertEpilogue = function(userid, params, cb){
       });
     }
   });
-
-	cb();
+  */
 };
