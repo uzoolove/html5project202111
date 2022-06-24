@@ -5,7 +5,7 @@ db.runCommand({dropDatabase: 1});
 // 등록할 회원 정보
 var m1 = {name: "kim", age: 20};
 var m2 = {name: "lee", age: 20};
-var m3 = {name: "admin", age: 35};
+var m3 = {_id: 123, name: "admin", age: 35};
 
 // TODO 1. member 컬렉션에 데이터 등록
 // insertOne({등록할 문서}), insertMany([{등록할 문서}, {등록할 문서}])
